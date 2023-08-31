@@ -1,0 +1,28 @@
+** Classic Pizzas **
+- Margherita Pizza - Tomato sauce, mozzarella cheese, fresh basil - $12.99
+- Pepperoni Passion - Tomato sauce, mozzarella cheese, pepperoni - $14.99
+- Veggie Supreme - Tomato sauce, mozzarella cheese, bell peppers, red onions, mushrooms, olives - $15.99
+- Hawaiian Delight - Tomato sauce, mozzarella cheese, ham, pineapple - $13.99
+- Four Cheese Special - Tomato sauce, mozzarella, cheddar, parmesan, feta - $16.99
+** Gourmet Pizzas **
+- BBQ Chicken Bliss - BBQ sauce, mozzarella cheese, grilled chicken, red onions, cilantro - $17.99
+- Mediterranean Marvel - Pesto sauce, mozzarella cheese, cherry tomatoes, black olives, feta, spinach - $18.99
+- Spicy Meat Feast - Spicy marinara, mozzarella cheese, Italian sausage, salami, jalapenos - $19.99
+- Truffle Elegance - White sauce, mozzarella cheese, truffle oil, mushrooms, arugula, shaved parmesan - $21.99
+- Seafood Sensation - Alfredo sauce, mozzarella cheese, shrimp, crab, clams, garlic - $22.99
+** Build Your Own Pizza **
+- Choose your sauce: Tomato, BBQ, Pesto, Alfredo, White
+- Choose your cheese: Mozzarella, Cheddar, Parmesan, Feta
+- Toppings: Pepperoni, Sausage, Bacon, Mushrooms, Bell Peppers, Onions, Olives, Jalapenos, Pineapple,
+- Spinach (Each topping - $1.50)
+** Gluten-Free Options **
+- All of our pizzas can be made with gluten-free crust - Add $2.00
+** Sides **
+- Garlic Knots (6 pieces) - $4.99
+- Caprese Salad - Fresh mozzarella, tomatoes, basil, balsamic glaze - $6.99
+- Seasoned Fries - Crispy seasoned potato fries - $3.99
+** Beverages **
+- Soft Drinks - $2.49
+- Bottled Water - $1.49
+- Iced Tea - $2.99
+- Fresh Lemonade - $3.49

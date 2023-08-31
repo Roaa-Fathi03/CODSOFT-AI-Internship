@@ -1,10 +1,7 @@
 import re
+
 # Requirements left:
-# 1. Handle menu printing and put it in a file
-# 2. Handle confirming order by saving the order if it is done
-# 3. Handle if the one message contains more than one inquiry
-# 4. Handle order timing response
-# 5. Handle ending conversation
+# 2. Handle if the one message contains more than one inquiry
 
 end = False
 order = ""
@@ -26,9 +23,6 @@ menu_price = {
     "Bottled Water": 1.49,
     "Iced Tea": 2.99,
     "Fresh Lemonade": 3.49,
-    "Tiramisu": 5.99,
-    "Chocolate Lava Cake": 6.99,
-    "Cannoli": 4.99
 }
 menu_ingredients = {
     "Margherita Pizza": ["Tomato sauce", "Mozzarella cheese", "Fresh basil"],
@@ -49,31 +43,30 @@ menu_ingredients = {
     "Bottled Water": ["Bottled water"],
     "Iced Tea": ["Iced tea"],
     "Fresh Lemonade": ["Lemon juice", "Water", "Sugar"],
-    "Tiramisu": ["Ladyfingers", "Mascarpone cheese", "Coffee", "Cocoa powder"],
-    "Chocolate Lava Cake": ["Chocolate cake", "Chocolate filling"],
-    "Cannoli": ["Pastry shell", "Sweet ricotta filling"]
 }
 
 intents = {
     "greeting": ["welcome", "hello", "al-salam alykom", "hi"],
     "order_pizza": ["order", "want to order", "get a pizza"],
+    "confirm_inquiry": ["confirm", "assure", "approve", "prove", "affirm", "assert", "get my order"],
     "menu_inquiry": ["menu", "show me the options", "what's on the menu"],
-    "specials_inquiry": ["specials", "discounts today", "what's on offer"],
+    "specials_inquiry": ["specials", "discount", "what's on offer"],
     "location_ inquiry": ["location", "branches", "place", "how can i go to the restaurant", "near", "close"],
-    "recommendation_inquiry": ["best", "I am confused", "I am lost", "best seller", "good pizza"],
+    "recommendation_inquiry": ["best", "I am confused", "I am lost", "best seller", "good pizza", "recommendations", "recommendation"],
     "delivery_inquiry": ["delivery", "deliver", "shipping", "home"],
     "beverages_inquiry": ["drink", "drinks", "syrup", "juice", "soda"],
     "gift_inquiry": ["grant", "present", "gift", "give", "children"],
     "extra_inquiry": ["more", "too", "want", "extra"],
     "price_inquiry": ["price", "money", "pay"],
-    "confirm_inquiry": ["confirm", "assure", "approve", "prove", "affirm", "assert", "get my order"],
-    "end_inquiry": ["end", "goodbye", "bye", "thanks I am done", "I am finished"],
+    "time_inquiry": ["time", "long time", "when i will get the order"],
+    "end_inquiry": ["end", "goodbye", "bye", "thanks I am done", "I am finished", "thanks", "thank you"],
+    "ingredients_inquiry": ["ingredients of", "made from"]
 }
 
 responses = {
     "greeting": "Hello Dear, How can I help you?",
-    "order_pizza": "Sure! What type of pizza would you like to order?",
-    "menu_inquiry": "Here, \n",
+    "order_pizza": "Sure, happy that you are here. \nwhat do u want to order? ",
+    "menu_inquiry": "Here, \n 🍕 Pizzeria Bella Menu 🍕\n",
     "specials_inquiry": "Today's specials include our Seafood Sensation and Mediterranean Marvel!",
     "location_ inquiry": "Sure, Branches Locations: \n 1. Pizzeria Bella 🍕 \n - Address: 123 Broadway Street, "
                          "New York, NY. \n"
@@ -89,7 +82,7 @@ responses = {
                          "- Bottled Water - $1.49\n"
                          "- Iced Tea - $2.99\n"
                          "- Fresh Lemonade -  $3.49\n",
-    "gift_inquiry": "Ofc, because we love you so, you can choose one:\n"
+    "gift_inquiry": "Ofc, you can choose one with each pizza:\n"
                     "- Tom statue.\n"
                     "- Jerry statue.\n"
                     "- Pen.\n"
@@ -97,15 +90,18 @@ responses = {
                     "- Tote bag.\n"
                     "- Mug.\n",
     "extra_inquiry": "Sure, anything else?",
-    "price_inquiry": "price",
-    "confirm_inquiry": "Sure we confirmed your order which is : \n",
+    "price_inquiry": "Here is the menu, you can check all prices\n",
+    "confirm_inquiry": "Sure, we confirmed your order and it will take maximum 30 mins. \n",
+    "time_inquiry": "The order takes maximum 30 mins to be done.",
     "end_inquiry": "** Thanks for your time, see you soon. **",
-
+    "ingredients_inquiry": "Here is teh menu, you can check the ingredients of each item.\n"
 }
 
 
 def display_menu():
-    pass
+    file = open("menu.txt", 'r')
+    menu_text = file.read()
+    return menu_text
 
 
 def get_intent(message):
@@ -126,26 +122,32 @@ def generate_response(intent):
 
 
 def chatbot_response(message):
+    global end, order
     user_intent = get_intent(message)
     if user_intent:
         response = generate_response(user_intent)
-        if user_intent == "menu_inquiry":
-            pass
+        if user_intent == "menu_inquiry" or user_intent == "price_inquiry" or user_intent == "ingredients_inquiry":
+            menu_text = display_menu()
+            response += menu_text + "\n"
+
+        if user_intent == "order_inquiry":
+            response += " " + generate_response("confirm_inquiry")
+
         if user_intent == "confirm_inquiry":
-            pass
+            response += " " + order
+
         if user_intent == "end_inquiry":
-            pass
-        if user_intent == "":
-            pass
+            end = True
+
     else:
-        response = "I'm not sure how to respond to that."
+        response = "I'm not sure how to respond to that, can you make your message more clear?"
+
     return response
 
 
 def user_input():
-    message = str(input("How can I help you? ")).strip().lower()
+    message = str(input("You: ")).strip().lower()
     return message
-
 
 
 def chatbot():
