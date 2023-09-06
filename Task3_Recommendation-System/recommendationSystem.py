@@ -9,7 +9,7 @@ b_ratings = pd.read_csv("books-ratings.txt")
 
 
 def format_movies_title(title):
-    title = re.sub("[^a-zA-Z ]", "", title)
+    title = re.sub("[^a-zA-Z' ]", "", title)
     return title.strip().lower()  # Strip spaces and convert to lowercase
 
 
@@ -57,16 +57,16 @@ def find_similar_books(book_id):
     rec_percentages["score"] = rec_percentages["similar"] / rec_percentages["all"]
     rec_percentages = rec_percentages.sort_values("score", ascending=False)
 
-    return rec_percentages.head(10).merge(books, left_index=True, right_on="bookId")[["score", "title", "genres"]]
+    return rec_percentages.head(11).merge(books, left_index=True, right_on="bookId")[["score", "title", "genres"]]
 
 
 def display_top_recommendations(item_name, top_recommendations):
     if len(top_recommendations) > 0:
         print(f"Since You liked ** {item_name} ** then these are top recommendations for you: \n")
-        i = 0
+        i = 1
         while i < len(top_recommendations):
             # print("recommendations are: ", top_10_recommendations)
-            print(f"=============== recommendation # {i + 1} ===============")
+            print(f"=============== recommendation # {i} ===============")
             ith_title = top_recommendations.iloc[i]["title"]
             ith_genres = top_recommendations.iloc[i]["genres"]
             print("Title: ", ith_title)
@@ -85,34 +85,39 @@ def recommendation_system():
               "1. Movie recommendations.\n"
               "2. Books recommendations.\n"
               "3. End\n")
-        choice = int(input("Enter 1, 2 or 3: "))
-        if choice == 1:  # we generate 10 recommendations for movies because we have a big dataset
-            movie_name = str(input("\nEnter a movie name: ")).lower().strip()
-            if movie_name in movies["clean_title"].values:
-                desired_movie = movies[movies["clean_title"] == movie_name]
-                movie_id = desired_movie["movieId"].values[0]
-                movie_title = desired_movie["title"].values[0]
-                top_10_recommendations = find_similar_movies(movie_id)
-                display_top_recommendations(movie_title, top_10_recommendations)
-            else:
-                print("this movie is not in our system")
+        try:
+            choice = int(input("Enter 1, 2 or 3: "))
+            if choice == 1:  # we generate 10 recommendations for movies because we have a big dataset
+                movie_name = str(input("\nEnter a movie name: ")).lower().strip()
+                if movie_name in movies["clean_title"].values:
+                    desired_movie = movies[movies["clean_title"] == movie_name]
+                    movie_id = desired_movie["movieId"].values[0]
+                    movie_title = desired_movie["title"].values[0]
+                    top_10_recommendations = find_similar_movies(movie_id)
+                    display_top_recommendations(movie_title, top_10_recommendations)
+                else:
+                    print("this movie is not in our system")
 
-        elif choice == 2:  # we generate fewer recommendations for books because we have a smaller dataset
-            book_name = str(input("\nEnter a book name: ")).lower().strip()
-            if book_name in books["clean_title"].values:
-                desired_book = books[books["clean_title"] == book_name]
-                book_id = desired_book["bookId"].values[0]
-                book_title = desired_book["title"].values[0]
-                top_recommendations = find_similar_books(book_id)
-                display_top_recommendations(book_title, top_recommendations)
-            else:
-                print("this book is not in our system")
+            elif choice == 2:  # we generate fewer recommendations for books because we have a smaller dataset
+                book_name = str(input("\nEnter a book name: ")).lower().strip()
+                print(books["clean_title"][43])
+                if book_name in books["clean_title"].values:
+                    desired_book = books[books["clean_title"] == book_name]
+                    book_id = desired_book["bookId"].values[0]
+                    book_title = desired_book["title"].values[0]
+                    top_recommendations = find_similar_books(book_id)
+                    display_top_recommendations(book_title, top_recommendations)
+                else:
+                    print("this book is not in our system")
 
-        elif choice == 3:
-            print("Thanks for choosing us.\n")
-            break
-        else:
-            print("Please enter a valid number. \n")
+            elif choice == 3:
+                print("Thanks for choosing us.\n")
+                break
+            else:
+                print("Please enter a valid number. \n")
+
+        except ValueError:
+            print("Enter a numeric data.\n")
 
 
 recommendation_system()
