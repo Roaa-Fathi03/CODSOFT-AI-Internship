@@ -16,7 +16,7 @@ def set_pc_symbol():
     global player_symbol, pc_symbol
     symbol = None
     while symbol is None:
-        symbol = str(input("Enter X or O: "))
+        symbol = str(input("Choose X or O: "))
 
         if symbol not in symbols:
             symbol = None
@@ -40,7 +40,6 @@ def display_board():
     print("=============================")
 
 
-
 def user_move():
     global player_symbol
 
@@ -52,7 +51,11 @@ def user_move():
             if position < 1 or position > 9:
                 position = None
             else:
-                board_simple[position - 1] = player_symbol
+                if board_simple[position - 1] == " ":
+                    board_simple[position - 1] = player_symbol
+                else:
+                    print("This position is already taken, try again.\n")
+                    position = None
 
         except ValueError:
             print("Enter an integer number.\n")
@@ -148,6 +151,7 @@ def tic_tac_toe():
         if check_winner():
             if not (turn % 2):
                 print("AI wins!")
+                break
             else:
                 print("Congratulations! You've won!")
                 break
