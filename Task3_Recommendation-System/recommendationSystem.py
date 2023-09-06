@@ -61,11 +61,10 @@ def find_similar_books(book_id):
 
 
 def display_top_recommendations(item_name, top_recommendations):
-    if len(top_recommendations) > 0:
+    if len(top_recommendations) > 1:
         print(f"Since You liked ** {item_name} ** then these are top recommendations for you: \n")
         i = 1
         while i < len(top_recommendations):
-            # print("recommendations are: ", top_10_recommendations)
             print(f"=============== recommendation # {i} ===============")
             ith_title = top_recommendations.iloc[i]["title"]
             ith_genres = top_recommendations.iloc[i]["genres"]
@@ -74,7 +73,6 @@ def display_top_recommendations(item_name, top_recommendations):
             i += 1
     else:
         print("Sorry, No recommendations match this item.\n")
-        # print(top_10_recommendations.iloc[i])
 
 
 def recommendation_system():
@@ -87,7 +85,7 @@ def recommendation_system():
               "3. End\n")
         try:
             choice = int(input("Enter 1, 2 or 3: "))
-            if choice == 1:  # we generate 10 recommendations for movies because we have a big dataset
+            if choice == 1:  # we generate 9 recommendations for movies because we have a big dataset
                 movie_name = str(input("\nEnter a movie name: ")).lower().strip()
                 if movie_name in movies["clean_title"].values:
                     desired_movie = movies[movies["clean_title"] == movie_name]
@@ -100,7 +98,6 @@ def recommendation_system():
 
             elif choice == 2:  # we generate fewer recommendations for books because we have a smaller dataset
                 book_name = str(input("\nEnter a book name: ")).lower().strip()
-                print(books["clean_title"][43])
                 if book_name in books["clean_title"].values:
                     desired_book = books[books["clean_title"] == book_name]
                     book_id = desired_book["bookId"].values[0]
