@@ -1,8 +1,5 @@
 import re
 
-# Requirements left:
-# 2. Handle if the one message contains more than one inquiry
-
 end = False
 order = ""
 menu_price = {
@@ -47,15 +44,15 @@ menu_ingredients = {
 
 intents = {
     "greeting": ["welcome", "hello", "al-salam alykom", "hi"],
-    "order_pizza": ["order", "want to order", "get a pizza"],
-    "confirm_inquiry": ["confirm", "assure", "approve", "prove", "affirm", "assert", "get my order"],
-    "menu_inquiry": ["menu", "show me the options", "what's on the menu"],
+    "order_pizza": ["want to make an order", "want to order", "get a pizza"],
+    "confirm_inquiry": ["confirm the order", "assure", "approve", "prove", "affirm", "assert", "get my order"],
+    "menu_inquiry": ["menu", "show me the options", "what's on the menu", "what do you do"],
     "specials_inquiry": ["specials", "discount", "what's on offer"],
     "location_ inquiry": ["location", "branches", "place", "how can i go to the restaurant", "near", "close"],
-    "recommendation_inquiry": ["best", "I am confused", "I am lost", "best seller", "good pizza", "recommendations", "recommendation"],
+    "recommendation_inquiry": ["best", "I am confused", "I am lost", "best seller", "good pizza", "recommendations"],
     "delivery_inquiry": ["delivery", "deliver", "shipping", "home"],
-    "beverages_inquiry": ["drink", "drinks", "syrup", "juice", "soda"],
-    "gift_inquiry": ["grant", "present", "gift", "give", "children"],
+    "beverages_inquiry": ["drinks", "syrup", "juice", "soda"],
+    "gift_inquiry": ["grant", "present", "gifts", "give", "children"],
     "extra_inquiry": ["more", "too", "want", "extra"],
     "price_inquiry": ["price", "money", "pay"],
     "time_inquiry": ["time", "long time", "when i will get the order"],
@@ -66,7 +63,7 @@ intents = {
 responses = {
     "greeting": "Hello Dear, How can I help you?",
     "order_pizza": "Sure, happy that you are here. \nwhat do u want to order? ",
-    "menu_inquiry": "Here, \n 🍕 Pizzeria Bella Menu 🍕\n",
+    "menu_inquiry": "Here is the menu, \n 🍕 Pizzeria Bella Menu 🍕\n",
     "specials_inquiry": "Today's specials include our Seafood Sensation and Mediterranean Marvel!",
     "location_ inquiry": "Sure, Branches Locations: \n 1. Pizzeria Bella 🍕 \n - Address: 123 Broadway Street, "
                          "New York, NY. \n"
@@ -74,7 +71,7 @@ responses = {
                          "2. Pizzeria Bella 🍕 \n - Address: 456 Oak Lane, Los Angeles, CA. \n - Phone: (323) "
                          "555-5678. \n"
                          " - Hours: Mon-Sat 10:30 AM - 9:30 PM, Sun 11:00 AM - 8:00 PM. \n",
-    "recommendation_inquiry": "Our Best Sellers Pizza are Pepperoni Passion and BBQ Chicken Bliss, You can order your "
+    "recommendation_inquiry": "Our Best Sellers Pizza are Pepperoni Passion and BBQ Chicken Bliss,\n You can order your"
                               "favourite drink too. 😉\n",
     "delivery_inquiry": "Delivery is available in New York and Los Angeles only for $10.\n",
     "beverages_inquiry": "Sure, our beverages are: \n"
@@ -92,8 +89,8 @@ responses = {
     "extra_inquiry": "Sure, anything else?",
     "price_inquiry": "Here is the menu, you can check all prices\n",
     "confirm_inquiry": "Sure, we confirmed your order and it will take maximum 30 mins. \n",
-    "time_inquiry": "The order takes maximum 30 mins to be done.",
-    "end_inquiry": "** Thanks for your time, see you soon. **",
+    "time_inquiry": "The order takes maximum 30 mins to be done.\n",
+    "end_inquiry": "** Thanks for your time, see you soon. ** \n",
     "ingredients_inquiry": "Here is teh menu, you can check the ingredients of each item.\n"
 }
 
